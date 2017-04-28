@@ -1,3 +1,9 @@
+  var IS_PHONE = function(){
+    return (d3.select("#isPhone").style("display") == "block")
+  }
+  var IS_MOBILE = function(){
+    return (d3.select("#isMobile").style("display") == "block")
+  }
 
 /**
  * scrollVis - encapsulates
@@ -8,8 +14,8 @@
 var scrollVis = function () {
   // constants to define the size
   // and margins of the vis area.
-  var width = 600;
-  var height = 520;
+  var width = IS_PHONE() ? 300 : 600;
+  var height = IS_PHONE() ? 260 : 520;
   var margin = { top: 0, left: 20, bottom: 40, right: 10 };
 
   // Keep track of which visualization
@@ -754,6 +760,21 @@ var scrollVis = function () {
 };
 
 
+function mobileStepVis(index){
+  console.log("foo")
+  d3.select("#vis")
+    .transition()
+    .duration(500)
+    .style("opacity",0)
+    .transition()
+    .delay(500)
+    .duration(500)
+    .style("opacity",1)
+  setTimeout(function(){
+    d3.select("#sections").node().insertBefore(d3.select("#vis").node(), d3.selectAll('.step').nodes()[index+1])
+  },750)
+}
+
 /**
  * display - called once data
  * has been loaded.
@@ -782,9 +803,18 @@ function display(data) {
     // highlight current step text
     d3.selectAll('.step')
       .style('opacity', function (d, i) { return i === index ? 1 : 0.1; });
+    if(IS_MOBILE()){
+      mobileStepVis(index);
+    }
+    var delay = IS_MOBILE() ? 1000 : 0
+
+
 
     // activate current section
-    plot.activate(index);
+    setTimeout(function(){
+      plot.activate(index);  
+    }, delay)
+    
   });
 
   scroll.on('progress', function (index, progress) {

@@ -77,4 +77,36 @@
 
 }
 
-
+#isMobile, #isPhone{
+    display: none;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+@media (max-width: 900px){
+  #isMobile{
+    display: block;
+  }
+  .step {
+    margin-bottom: 600px;
+  }
+  #vis{
+    position: absolute;
+    top: initial;
+    margin-top: -600px;
+  }
+}
+@media (max-width: 600px){
+  #isPhone{
+      display: block;
+  }
+  .step {
+    margin-bottom: 300px;
+  }
+  #vis{
+    margin-top: -300px;
+  }
+}
