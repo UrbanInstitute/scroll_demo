@@ -98,6 +98,9 @@
     top: initial;
     margin-top: -600px;
   }
+  .container {
+    width: 600px;
+  }
 }
 @media (max-width: 600px){
   #isPhone{
@@ -108,5 +111,8 @@
   }
   #vis{
     margin-top: -300px;
+  }
+  .container {
+    width: 320px;
   }
 }
